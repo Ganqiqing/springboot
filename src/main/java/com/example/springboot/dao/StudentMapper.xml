@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper为根元素，namespace指定了命名空间-->
+<mapper namespace="com.example.springboot.dao.StudentMapper">
+    <select id="selectAll" resultType="com.example.springboot.pojo.Student">
+        select * from student
+    </select>
+
+    <delete id="delStu">
+        delete from student where id=#{id};
+    </delete>
+
+    <select id="getList" resultType="student">
+        select * from student where 1=1
+        <if test="name!=null and name!=''">
+            and name=#{name}
+        </if>
+        <if test="age!=null and age!=''">
+            and age=#{age}
+        </if>
+    </select>
+
+    <select id="someList" resultType="student">
+        select * from student
+        <trim prefix="where" prefixOverrides="and || or">
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="age!=null and age!=''">
+                and age=#{age}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateFirst" parameterType="student">
+        update student
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="age!=null and age!=''">
+                age=#{age}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <update id="updateSec" parameterType="student">
+        update student
+        <trim prefix="set" suffix="where id=#{id}" suffixOverrides=",">
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="age!=null and age!=''">
+                age=#{age}
+            </if>
+        </trim>
+    </update>
+
+    <!--foreach in语句 select * from student where id in (1,2,3)-->
+    <!--
+        index:索引变量名
+        item：对象变量名（每次遍历生成的对象）
+        open：起始符（开始遍历时拼接的字符串）
+        close：结束符（结束时拼接的字符）
+        spearator:分隔符
+        collection：集合对象类型（list array map-key）
+    -->
+    <select id="inList" resultType="student">
+        select * from student where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="inArray" resultType="student">
+        select * from student where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="inMap" resultType="student">
+
+    </select>
+</mapper>
