@@ -10,7 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {SpringbootApplication.class})
@@ -48,8 +50,11 @@ public class StuTest {
         arrays[2] = 11;
         List<Student> studentArray = studentMapper.inArray(arrays);
         System.out.println(studentArray);
-        //使用map忘了 明天写
-
+        //使用map
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", integerList);
+        List<Student> studentMap = studentMapper.inMap(map);
+        System.out.println(studentMap);
     }
 
     @Test

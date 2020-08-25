@@ -75,7 +75,7 @@
         </foreach>
     </select>
 
-    <select id="inArray" resultType="student">
+    <select id="inArray" resultMap="stuMap">
         select * from student where id in
         <foreach collection="array" item="id" open="(" close=")" separator=",">
             #{id}
@@ -83,6 +83,16 @@
     </select>
 
     <select id="inMap" resultType="student">
-
+        select * from student where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
     </select>
+
+    <!--resultMap type ：结果集返回类型， id结果集的标识-->
+    <resultMap id="stuMap" type="student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+    </resultMap>
 </mapper>
