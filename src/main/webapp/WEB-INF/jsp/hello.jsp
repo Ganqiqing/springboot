@@ -22,7 +22,7 @@
         <tr>
             <td>${user.id}</td>
             <td>${user.name}</td>
-            <td>${user.age}</td>
+            <td>${user.password}</td>
         </tr>
     </c:forEach>
 </table>

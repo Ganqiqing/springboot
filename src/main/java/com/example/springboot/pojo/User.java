@@ -3,15 +3,15 @@ package com.example.springboot.pojo;
 public class User {
     private Integer id;
     private String name;
-    private Integer age;
+    private String password;
 
     public User() {
     }
 
-    public User(Integer id, String name, Integer age) {
+    public User(Integer id, String name, String password) {
         this.id = id;
         this.name = name;
-        this.age = age;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -30,12 +30,12 @@ public class User {
         this.name = name;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", age=" + age +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

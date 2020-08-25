@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper为根元素，namespace指定了命名空间-->
+<mapper namespace="com.example.springboot.dao.UserMapper">
+    <select id="login" resultType="user">
+        select * from user_login where name=#{name} and password=#{password}
+    </select>
+
+    <!--sql片段使用-->
+    <insert id="register" parameterType="user" useGeneratedKeys="true">
+        insert into user_login(<include refid="key"/>) values (<include refid="value"/>)
+    </insert>
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="id != null and id!=0">
+                id,
+            </if>
+            <if test="name != null and name!=''">
+                name,
+            </if>
+            <if test="password != null and password!=''">
+                password,
+            </if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="id != null and id!=0">
+                #{id},
+            </if>
+            <if test="name != null and name!=''">
+                #{name},
+            </if>
+            <if test="password != null and password!=''">
+                #{password},
+            </if>
+        </trim>
+    </sql>
+</mapper>
