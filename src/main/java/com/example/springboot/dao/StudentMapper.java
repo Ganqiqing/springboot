@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 //@Repository
+//扫面映射
 @Mapper
 public interface StudentMapper {
     public List<Student> selectAll();
 
     public boolean delStu(Integer id);
+
+    //下面的都是动态SQL的语句不用
 
     public List<Student> getList(Student student);
 

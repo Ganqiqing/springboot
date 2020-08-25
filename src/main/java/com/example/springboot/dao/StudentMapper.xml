@@ -12,6 +12,7 @@
         delete from student where id=#{id};
     </delete>
 
+    <!--动态sql-->
     <select id="getList" resultType="student">
         select * from student where 1=1
         <if test="name!=null and name!=''">

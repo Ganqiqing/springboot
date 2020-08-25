@@ -13,6 +13,26 @@
         loadStuData();
     })
 
+    function loadStuData() {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/student/selectAll",
+            type: "psot",
+            dataType: "json",
+            success: function (data) {
+                $("#info").empty();
+                $.each(data, function (i, n) {
+                    $("#info").append("<tr>")
+                        .append("<td>" + n.id + "</td>")
+                        .append("<td>" + n.name + "</td>")
+                        .append("<td>" + n.age + "</td>")
+                        .append("<td>" + "<a href='javascript:upgrade(" + n.id + ")'>修改</a>" + "</td>")
+                        .append("<td>" + "<a href='javascript:del(" + n.id + ")'>删除</a>" + "</td>")
+                        .append("</tr>")
+                })
+            }
+        })
+    }
+
     function del(id) {
         $.ajax({
             url: "${pageContext.request.contextPath}/student/del",
@@ -51,27 +71,6 @@
             }
         })
     }
-
-    function loadStuData() {
-        $.ajax({
-            url: "${pageContext.request.contextPath}/student/selectAll",
-            type: "psot",
-            dataType: "json",
-            success: function (data) {
-                $("#info").empty();
-                $.each(data, function (i, n) {
-                    $("#info").append("<tr>")
-                        .append("<td>" + n.id + "</td>")
-                        .append("<td>" + n.name + "</td>")
-                        .append("<td>" + n.age + "</td>")
-                        .append("<td>" + "<a href='javascript:upgrade(" + n.id + ")'>修改</a>" + "</td>")
-                        .append("<td>" + "<a href='javascript:del(" + n.id + ")'>删除</a>" + "</td>")
-                        .append("</tr>")
-                })
-            }
-        })
-    }
-
 </script>
 <style type="text/css">
 </style>
@@ -86,6 +85,7 @@
             <th>id</th>
             <th>name</th>
             <th>age</th>
+            <td colSpan="2" style=" text-align:center">操作</td>
         </tr>
         <c:forEach items="${students}" var="student">
             <tr>

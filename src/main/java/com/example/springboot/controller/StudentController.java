@@ -22,7 +22,8 @@ public class StudentController {
         return "index";
     }
 
-    @RequestMapping("list")
+    //返回查询到集合
+    @RequestMapping("/list")
     public ModelAndView list() {
         ModelAndView view = new ModelAndView();
         List<Student> students = studentService.selectAll();
@@ -31,22 +32,26 @@ public class StudentController {
         return view;
     }
 
-    @RequestMapping(value = "del")
-    @ResponseBody
-    String del(Integer id){
-        String result = "{\"result\":\"error\"}";
-        if (studentService.delStu(id)){
-            result = "{\"result\":\"success\"}";
-            return result;
-        }else {
-            return result;
-        }
-    }
-
+    //两个功能一样的所以用了相同的方法的
+    //用ajax接收数据类型为json的集合
     @RequestMapping("/selectAll")
     @ResponseBody
     public List<Student> selectAll() {
         List<Student> students = studentService.selectAll();
         return students;
     }
+
+    //使用ajax删除返回结果
+    @RequestMapping(value = "/del")
+    @ResponseBody
+    String del(Integer id) {
+        String result = "{\"result\":\"error\"}";
+        if (studentService.delStu(id)) {
+            result = "{\"result\":\"success\"}";
+            return result;
+        } else {
+            return result;
+        }
+    }
+
 }
